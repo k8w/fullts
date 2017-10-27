@@ -1,26 +1,11 @@
 import * as React from 'react';
 import FullTsApp from '../src/FullTsApp';
 
-const HomeLayout = (props: any) => (
-    <div>
-        <h1>HomeView</h1>
-        {props.children}
-    </div>
-)
-
-const IndexView = () => (
-    <HomeLayout>
-        <h2>Index</h2>
-        <hr />
-        <p>Here is my home.</p>
-    </HomeLayout>
-)
-
 new FullTsApp({
     serverUrl: '',
     routes: [
-        { path: '/', component: IndexView },
+        { path: '/', component: () => import('./views/HomeView') },
         { path: '/sub', component: () => import('./views/SubView') },
-        { path: '*', render: () => <h1>404 allal</h1> }
+        { path: '*', component: () => import('./views/Page404') }
     ]
 }).render(document.getElementById('app-root')!)

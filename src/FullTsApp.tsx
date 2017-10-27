@@ -13,9 +13,7 @@ export default class FullTsApp implements ITsRpcClient {
     readonly config: FullTsAppConfig;
 
     constructor(config: FullTsAppConfig) {
-        //TODO process config
         this.config = config;
-
         this.rpcClient = new RpcClient({
             serverUrl: this.config.serverUrl
         })
