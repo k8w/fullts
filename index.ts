@@ -1,11 +1,11 @@
 import FullTsAppConfig from './src/FullTsAppConfig';
 import FullTsApp from "./src/FullTsApp";
 import FullTsComponent from './src/FullTsComponent';
-import { FullTsRouteProps } from './src/FullTsRoute';
+import { FullTsAppRoute } from './src/FullTsAppConfig';
 
 export {
     FullTsApp,
     FullTsAppConfig,
-    FullTsRouteProps,
+    FullTsAppRoute,
     FullTsComponent
 }

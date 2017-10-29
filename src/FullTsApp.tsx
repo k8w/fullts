@@ -11,7 +11,6 @@ import FullTsRouteRender from './FullTsRouteRender';
 export default class FullTsApp implements ITsRpcClient {
     protected rpcClient: RpcClient;
     readonly config: FullTsAppConfig;
-    protected container: FullTsAppContainer;
 
     /**
      * params from route match

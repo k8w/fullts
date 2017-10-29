@@ -4,7 +4,6 @@ import SuperPromise from "k8w-super-promise";
 import FullTsApp from './FullTsApp';
 import { RpcClient } from "tsrpc-browser";
 import * as PropTypes from 'prop-types';
-import { RouteComponentProps, RouterChildContext } from "react-router";
 
 export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> implements ITsRpcClient {
     static contextTypes = {

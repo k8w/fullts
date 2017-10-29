@@ -1,4 +1,26 @@
 {
+  "name": "fullts",
+  "version": "0.1.0",
+  "description": "Full stack framework in TypeScript, based on TSRPC.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "rm -rf dist && tsc -d && cp package.json LICENSE README.md dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/k8w/fullts.git"
+  },
+  "keywords": [
+    "fullts",
+    "tsrpc",
+    "full-stack",
+    "full stack",
+    "typescript",
+    "k8w"
+  ],
+  "author": "k8w",
+  "license": "Apache-2.0",
   "dependencies": {
     "@types/react": "^16.0.18",
     "k8w-super-promise": "^0.2.1",
@@ -15,5 +37,6 @@
     "@types/prop-types": "^15.5.2",
     "@types/react-dom": "^16.0.2",
     "@types/react-router-dom": "^4.0.8"
-  }
+  },
+  "typings": "index.d.ts"
 }

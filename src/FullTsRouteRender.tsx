@@ -2,12 +2,12 @@ import * as React from 'react';
 import { FullTsAppRoute } from './FullTsAppConfig';
 import { RouteComponentProps } from 'react-router';
 
-interface FullTsRouteRenderProps {
+export interface FullTsRouteRenderProps {
     route: FullTsAppRoute,
     routeProps: RouteComponentProps<any>
 }
 
-interface FullTsRouteRenderState {
+export interface FullTsRouteRenderState {
     componentClass?: React.ComponentClass;
     node?: React.ReactNode;
 }
