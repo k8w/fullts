@@ -1,34 +1,31 @@
 import * as React from 'react';
-import { Route, RouteComponentProps} from 'react-router';
+import { FullTsAppRoute } from './FullTsAppConfig';
+import { RouteComponentProps } from 'react-router';
 
-/**
- * Likely with React Router, but is async
- */
-export interface FullTsRouteProps {
-    path: string;
-    component?: React.ComponentType | (() => PromiseLike<{ default: React.ComponentType }>);
-    render?: ((props: RouteComponentProps<any>) => (React.ReactNode | PromiseLike<React.ReactNode>));
-}; 
+interface FullTsRouteRenderProps {
+    route: FullTsAppRoute,
+    routeProps: RouteComponentProps<any>
+}
 
-interface FullTsRouteState {
+interface FullTsRouteRenderState {
     componentClass?: React.ComponentClass;
     node?: React.ReactNode;
 }
 
-export default class FullTsRoute extends React.Component<FullTsRouteProps, FullTsRouteState>{
+export default class FullTsRouteRender extends React.Component<FullTsRouteRenderProps, FullTsRouteRenderState>{
     //<Switch></Switch>的BUG 如果不指定这个则会全部变成exact false
     static defaultProps = {
         exact: true
     } as any;
 
-    constructor(props?: FullTsRouteProps, context?: any) {
+    constructor(props?: FullTsRouteRenderProps, context?: any) {
         super(props, context);
         this.state = {};
     }
 
     componentWillMount() {
-        if (this.props.render) {
-            let result = this.props.render({
+        if (this.props.route.render) {
+            let result = this.props.route.render({
                 match: (this.props as any).match,
                 location: (this.props as any).location,
                 history: (this.props as any).history
@@ -48,10 +45,10 @@ export default class FullTsRoute extends React.Component<FullTsRouteProps, FullT
                 })
             }
         }
-        else if (this.props.component) {
-            if (typeof this.props.component == 'function') {
+        else if (this.props.route.component) {
+            if (typeof this.props.route.component == 'function') {
                 //function
-                let result: any = (this.props.component as Function)();
+                let result: any = (this.props.route.component as Function)();
                 if (result.then) {
                     result.then((v: any) => {
                         this.setState({
@@ -62,14 +59,14 @@ export default class FullTsRoute extends React.Component<FullTsRouteProps, FullT
                 else {
                     //pure component function
                     this.setState({
-                        componentClass: this.props.component as any
+                        componentClass: this.props.route.component as any
                     })
                 }
             }
             else {
                 //not function
                 this.setState({
-                    componentClass: this.props.component
+                    componentClass: this.props.route.component
                 })
             }
         }
@@ -78,15 +75,15 @@ export default class FullTsRoute extends React.Component<FullTsRouteProps, FullT
     render() {
         if (this.state.node) {
             //render
-            return <Route path={this.props.path} exact>{this.state.node}</Route>;
+            return this.state.node as any;
         }
         else if (this.state.componentClass) {
             //component
-            return <Route path={this.props.path} exact component={this.state.componentClass} />;
+            return <this.state.componentClass {...this.props.routeProps} />;
         }
         else {
             //loading
-            return <Route path={this.props.path} exact />;
+            return null;
         }
     }
 }

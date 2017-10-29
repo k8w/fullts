@@ -4,6 +4,7 @@ import SuperPromise from "k8w-super-promise";
 import FullTsApp from './FullTsApp';
 import { RpcClient } from "tsrpc-browser";
 import * as PropTypes from 'prop-types';
+import { RouteComponentProps, RouterChildContext } from "react-router";
 
 export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> implements ITsRpcClient {
     static contextTypes = {
@@ -49,6 +50,12 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
     get app(): FullTsApp {
         return this.context.fullTsApp;
     }
+
+    //TODO
+    history: any;   //ref
+    location: any;  //ref
+    params: any;    
+    query: {[key: string]: string}; //ref
 
     private _componentWillUnmount() {
         this._cancelAllApiRequest();

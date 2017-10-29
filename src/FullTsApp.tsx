@@ -5,12 +5,27 @@ import { ITsRpcClient, TsRpcPtl } from 'tsrpc-protocol';
 import SuperPromise from 'k8w-super-promise';
 import { RpcClient } from 'tsrpc-browser';
 import * as PropTypes from 'prop-types';
-import { BrowserRouter, Switch } from 'react-router-dom';
-import FullTsRoute from './FullTsRoute';
+import { BrowserRouter, Switch, Route, RouteComponentProps } from 'react-router-dom';
+import FullTsRouteRender from './FullTsRouteRender';
 
 export default class FullTsApp implements ITsRpcClient {
     protected rpcClient: RpcClient;
     readonly config: FullTsAppConfig;
+    protected container: FullTsAppContainer;
+
+    /**
+     * params from route match
+     */
+    params: any;
+    /**
+     * params from parse query string
+     */
+    query: { [key: string]: string } = {};
+
+    //Router
+    history: RouteComponentProps<any>['history'];
+    location: RouteComponentProps<any>['location'];
+    match: RouteComponentProps<any>['match'];
 
     constructor(config: FullTsAppConfig) {
         this.config = config;
@@ -61,6 +76,7 @@ class FullTsAppContainer extends React.Component<{ app: FullTsApp }> {
     static childContextTypes = {
         fullTsApp: PropTypes.instanceOf(FullTsApp)
     }
+
     getChildContext() {
         return {
             fullTsApp: this.props.app
@@ -72,10 +88,37 @@ class FullTsAppContainer extends React.Component<{ app: FullTsApp }> {
             <BrowserRouter>
                 <Switch>
                     {this.props.app.config.routes.map((v, i) =>
-                        <FullTsRoute key={i} {...v} />
+                        <Route key={i} path={v.path} exact render={props => {
+                            this.props.app.history = props.history;
+                            this.props.app.match = props.match;
+                            this.props.app.location = props.location;
+                            this.props.app.params = props.match.params;
+                            this.props.app.query = this.parseQueryString(props.location.search);
+                            return <FullTsRouteRender route={v} routeProps={props} />
+                        }} />
                     )}
                 </Switch>
             </BrowserRouter>
         );
+    }
+
+    private parseQueryString(search: string): { [key: string]: string }{
+        if (!search) {
+            return {};
+        }
+
+        let paramStrs = search.replace(/^\?/, '').split('&');
+        let output: any = {};
+        for (let str of paramStrs) {
+            let equalPos = str.indexOf('=');
+            if (equalPos > -1) {
+                output[str.slice(0, equalPos)] = decodeURIComponent(str.slice(equalPos+1))
+            }
+            else {
+                output[str] = '';
+            }
+        }
+
+        return output;
     }
 }
