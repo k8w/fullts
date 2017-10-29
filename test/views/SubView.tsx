@@ -6,7 +6,7 @@ export default class SubView extends FullTsComponent{
     render() {
         return (
             <Layout>
-                SubView
+                SubView {this.app.params.id} {this.app.query.id}
             </Layout>
         )
     }

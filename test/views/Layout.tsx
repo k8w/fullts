@@ -18,6 +18,8 @@ export default class Layout extends React.PureComponent {
                     <p>
                         <NavLink exact activeStyle={{color: 'red'}} to='/'>Home</NavLink>&nbsp;&nbsp;|&nbsp;&nbsp;
                         <NavLink exact activeStyle={{ color: 'red' }} to='/sub'>SubView</NavLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <NavLink exact activeStyle={{ color: 'red' }} to='/sub/LA'>SubView/LA</NavLink>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <NavLink exact activeStyle={{ color: 'red' }} to='/sub/AB?id=CD'>SubView/AB?id=CD</NavLink>&nbsp;&nbsp;|&nbsp;&nbsp;
                         <NavLink exact activeStyle={{ color: 'red' }} to={'/404'}>404</NavLink>
                     </p>
                 </header>
