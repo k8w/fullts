@@ -1,11 +1,11 @@
 {
   "name": "fullts",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Full stack framework in TypeScript, based on TSRPC.",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "build": "rm -rf dist && tsc -d && cp package.json LICENSE README.md dist/"
+    "build": "rm -rf dist && tsc -d && cp package.json LICENSE README.md dist/ && cp src/*.d.ts dist/src/"
   },
   "repository": {
     "type": "git",
