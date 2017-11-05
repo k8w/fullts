@@ -13,9 +13,7 @@ export default class HomeView extends FullTsComponent{
     
     render() {
         return (
-            <Layout>
-                HomeView
-            </Layout>
+            <div>HomeView</div>
         )
     }
 }

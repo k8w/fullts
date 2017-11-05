@@ -23,7 +23,7 @@ export default class Layout extends React.PureComponent {
                         <NavLink exact activeStyle={{ color: 'red' }} to={'/404'}>404</NavLink>
                     </p>
                 </header>
-                <section style={{ fontSize: 18, padding: 20 }}>{this.props.children}</section>
+                <section style={{ fontSize: 18, padding: 20 }}>{this.props.children || <div>Loading...</div>}</section>
                 <footer style={{ ...style, lineHeight: '50px' }}>Footer</footer>
             </div>
         )

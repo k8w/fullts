@@ -9,7 +9,6 @@ export interface FullTsRouteRenderProps {
 
 export interface FullTsRouteRenderState {
     componentClass?: React.ComponentClass;
-    node?: React.ReactNode;
 }
 
 export default class FullTsRouteRender extends React.Component<FullTsRouteRenderProps, FullTsRouteRenderState>{
@@ -24,28 +23,28 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
     }
 
     componentWillMount() {
-        if (this.props.route.render) {
-            let result = this.props.route.render({
-                match: (this.props as any).match,
-                location: (this.props as any).location,
-                history: (this.props as any).history
-            });
-            if (result && (result as PromiseLike<React.ReactNode>).then) {
-                //is Promise
-                (result as PromiseLike<React.ReactNode>).then(v => {
-                    this.setState({
-                        node: v
-                    })
-                })
-            }
-            else {
-                //not Promise
-                this.setState({
-                    node: result as React.ReactNode
-                })
-            }
-        }
-        else if (this.props.route.component) {
+        // if (this.props.route.render) {
+        //     let result = this.props.route.render({
+        //         match: (this.props as any).match,
+        //         location: (this.props as any).location,
+        //         history: (this.props as any).history
+        //     });
+        //     if (result && (result as PromiseLike<React.ReactNode>).then) {
+        //         //is Promise
+        //         (result as PromiseLike<React.ReactNode>).then(v => {
+        //             this.setState({
+        //                 node: v
+        //             })
+        //         })
+        //     }
+        //     else {
+        //         //not Promise
+        //         this.setState({
+        //             node: result as React.ReactNode
+        //         })
+        //     }
+        // }
+        if (this.props.route.component) {
             if (typeof this.props.route.component == 'function') {
                 //function
                 let result: any = (this.props.route.component as Function)();
@@ -72,18 +71,23 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
         }
     }
 
-    render() {
-        if (this.state.node) {
-            //render
-            return this.state.node as any;
-        }
-        else if (this.state.componentClass) {
+    render(): React.ReactNode {
+        let output: React.ReactNode = null;
+        if (this.state.componentClass) {
             //component
-            return <this.state.componentClass {...this.props.routeProps} />;
+            let Comp = this.state.componentClass;
+            output = <Comp {...this.props.routeProps} >{this.props.children}</Comp>;
+        }
+
+        if (this.props.route.layout) {
+            //Layout
+            return <FullTsRouteRender route={{
+                path: this.props.route.path,
+                component: this.props.route.layout
+            }} routeProps={this.props.routeProps} >{output}</FullTsRouteRender>
         }
         else {
-            //loading
-            return null;
+            return output;
         }
     }
 }
