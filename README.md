@@ -8,7 +8,15 @@ Full-stack framework in TypeScript, based on [TSRPC](https://github.com/k8w/tsrp
 **Still under developing, feel free to log a issue.**
 
 ## Features
-*//TODO*
+### Quick development
+Extremly efficient in development, everything in TypeScript.
+Share code between frontend and backend, remote function call just like local
+
+### High performance
+Delay load, pack and chunk, tested online over 2 years
+
+### Easy to learn
+Get best practise of project instantly, without learning many tools (etc. webpack, react-router...)
 
 ## Usage
 
@@ -24,5 +32,5 @@ new FullTsApp({
         { path: '/post/:id', component: () => import('./views/SingleArticleView') },
         { path: '*', component: () => import('./views/Page404') }   //404 Page
     ]
-}).render(document.getElementById('app-root')!)
+}).renderTo(document.getElementById('app-root')!)
 ```

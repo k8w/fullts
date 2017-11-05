@@ -51,7 +51,7 @@ export default class FullTsApp implements ITsRpcClient {
     }
 
     protected _domTarget: HTMLElement;
-    render(domTarget: HTMLElement) {
+    renderTo(domTarget: HTMLElement) {
         this._domTarget = domTarget;
         ReactDOM.render(<FullTsAppContainer app={this} />, domTarget);
     }

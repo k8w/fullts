@@ -12,4 +12,4 @@ new FullTsApp({
     onRouteChange: e => {
         console.log(e);
     }
-}).render(document.getElementById('app-root')!)
+}).renderTo(document.getElementById('app-root')!)
