@@ -1,8 +1,21 @@
 import { RouteComponentProps } from 'react-router';
 
+export interface RouteChangeEvent {
+    prevLocation?: RouteComponentProps<any>['location'];
+    prevParams?: any;
+    prevQuery?: { [key: string]: string };
+    nextLocation: RouteComponentProps<any>['location'];
+    nextParams: any;
+    nextQuery: { [key: string]: string };
+}
+
 export default interface FullTsAppConfig {
+    /**
+     * TSRPC服务端地址 例如 http://test.com/api
+     */
     serverUrl: string,
-    routes: FullTsAppRoute[]
+    routes: FullTsAppRoute[],
+    onRouteChange?: (e: RouteChangeEvent) => void;
 }
 
 export interface FullTsAppRoute {

@@ -69,6 +69,54 @@ export default class FullTsApp implements ITsRpcClient {
             }
         }
     }
+
+    /**
+     * 设置页面标题
+     * @param title
+     */
+    setTitle(title: string) {
+        let titleNode: HTMLTitleElement | null = document.head.querySelector('title');
+        if (!titleNode) {
+            titleNode = document.createElement('title');
+            document.head.appendChild(titleNode);
+        }
+        titleNode.innerText = title;
+    }
+
+    /**
+     * 设置SEO用到的Meta信息
+     * @param meta
+     */
+    setSeoMeta(meta: {
+        keywords: string[] | null,
+        description: string | null
+    }) {
+        let keywordsNode: HTMLMetaElement | null = document.head.querySelector('meta[name=keywords]');
+        if (meta.keywords && meta.keywords.length) {
+            if (!keywordsNode) {
+                keywordsNode = document.createElement('meta');
+                keywordsNode.name = 'keywords';
+                document.head.appendChild(keywordsNode);
+            }
+            keywordsNode.content = meta.keywords.join();
+        }
+        else {
+            keywordsNode && keywordsNode.remove();
+        }
+
+        let descNode: HTMLMetaElement | null = document.head.querySelector('meta[name=description]');
+        if (meta.description) {
+            if (!descNode) {
+                descNode = document.createElement('meta');
+                descNode.name = 'description';
+                document.head.appendChild(descNode);
+            }
+            descNode.content = meta.description;
+        }
+        else {
+            descNode && descNode.remove();
+        }
+    }
 }
 
 class FullTsAppContainer extends React.Component<{ app: FullTsApp }> {
@@ -88,11 +136,25 @@ class FullTsAppContainer extends React.Component<{ app: FullTsApp }> {
                 <Switch>
                     {this.props.app.config.routes.map((v, i) =>
                         <Route key={i} path={v.path} exact render={props => {
+                            let prevLocation = this.props.app.location;
+                            let prevParams = this.props.app.params;
+                            let prevQuery = this.props.app.query;
                             this.props.app.history = props.history;
                             this.props.app.match = props.match;
                             this.props.app.location = props.location;
                             this.props.app.params = props.match.params;
                             this.props.app.query = this.parseQueryString(props.location.search);
+                            
+                            //event
+                            this.props.app.config.onRouteChange && this.props.app.config.onRouteChange({
+                                prevLocation: prevLocation,
+                                prevParams: prevParams,
+                                prevQuery: prevQuery,
+                                nextLocation: this.props.app.location,
+                                nextParams: this.props.app.params,
+                                nextQuery: this.props.app.query
+                            });
+
                             return <FullTsRouteRender route={v} routeProps={props} />
                         }} />
                     )}
