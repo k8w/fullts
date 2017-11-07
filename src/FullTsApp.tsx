@@ -91,7 +91,7 @@ export default class FullTsApp implements ITsRpcClient {
         keywords: string[] | null,
         description: string | null
     }) {
-        let keywordsNode: HTMLMetaElement | null = document.head.querySelector('meta[name=keywords]');
+        let keywordsNode = document.head.querySelector('meta[name=keywords]') as HTMLMetaElement | null;
         if (meta.keywords && meta.keywords.length) {
             if (!keywordsNode) {
                 keywordsNode = document.createElement('meta');
@@ -104,7 +104,7 @@ export default class FullTsApp implements ITsRpcClient {
             keywordsNode && keywordsNode.remove();
         }
 
-        let descNode: HTMLMetaElement | null = document.head.querySelector('meta[name=description]');
+        let descNode = document.head.querySelector('meta[name=description]') as HTMLMetaElement | null;
         if (meta.description) {
             if (!descNode) {
                 descNode = document.createElement('meta');

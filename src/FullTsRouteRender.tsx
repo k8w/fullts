@@ -71,7 +71,7 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
         }
     }
 
-    render(): React.ReactNode {
+    render(): any {
         let output: React.ReactNode = null;
         if (this.state.componentClass) {
             //component
