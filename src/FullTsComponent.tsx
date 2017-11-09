@@ -67,4 +67,15 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
             }
         }
     }
+
+    /**
+     * 同原生setTimeout 但uncomponent时会自动清除
+     * @param handler 
+     * @param ms 
+     */
+    
+    
+    setTimeout(handler: () => void, ms: number) {
+        
+    }
 }

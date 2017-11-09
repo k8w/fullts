@@ -1,6 +1,6 @@
 {
   "name": "fullts",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Full stack framework in TypeScript, based on TSRPC.",
   "main": "index.js",
   "scripts": {
@@ -25,14 +25,14 @@
     "@types/prop-types": "^15.5.2",
     "@types/react-dom": "^16.0.2",
     "@types/react-router-dom": "^4.2.0",
-    "k8w-super-promise": "^0.2.1",
+    "k8w-super-promise": "*",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
     "ts-loader": "^3.1.1",
-    "tsrpc-browser": "^0.4.2",
-    "tsrpc-protocol-loader": "^0.2.3",
+    "tsrpc-browser": "*",
+    "tsrpc-protocol-loader": "*",
     "typescript": "^2.6.1",
     "webpack": "^3.8.1"
   },
