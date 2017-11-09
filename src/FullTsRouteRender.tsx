@@ -17,7 +17,7 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
         exact: true
     } as any;
 
-    constructor(props?: FullTsRouteRenderProps, context?: any) {
+    constructor(props: FullTsRouteRenderProps, context?: any) {
         super(props, context);
         this.state = {};
     }

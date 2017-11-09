@@ -10,7 +10,7 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
         fullTsApp: PropTypes.instanceOf(FullTsApp)
     }
 
-    constructor(props?: P, context?: any) {
+    constructor(props: P, context?: any) {
         super(props, context);
 
         //componentWillUnmount cancel all api requests

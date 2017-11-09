@@ -9,7 +9,3 @@ export {
     FullTsAppRoute,
     FullTsComponent
 }
-
-declare global {
-    let require: any;
-}
