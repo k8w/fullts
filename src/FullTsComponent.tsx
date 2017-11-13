@@ -86,7 +86,7 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
      * @param handler 
      * @param ms 
      */
-    setTimeout(handler: () => void, ms: number) {
+    setTimeout(handler: () => void, ms: number): number {
         let timer = setTimeout(() => {
             handler();
             let index = this._setTimeoutTimers.binarySearch(timer);
@@ -95,6 +95,7 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
             }
         }, ms)
         this._setTimeoutTimers.binaryInsert(timer);
+        return timer;
     }
 
     private _setIntervalTimers: number[] = [];
@@ -103,7 +104,7 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
      * @param handler 
      * @param ms 
      */
-    setInterval(handler: () => void, ms: number) {
+    setInterval(handler: () => void, ms: number): number {
         let timer = setInterval(() => {
             handler();
             let index = this._setIntervalTimers.binarySearch(timer);
@@ -112,6 +113,7 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
             }
         }, ms)
         this._setIntervalTimers.binaryInsert(timer);
+        return timer;
     }
 
     private _globalEventListeners: {
