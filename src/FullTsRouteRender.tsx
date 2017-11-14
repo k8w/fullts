@@ -18,20 +18,20 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
     }
 
     componentWillMount() {
-        if (typeof this.props.route.component == 'function') {
+        if (this.isDynamicImport(this.props.route.component)) {
             this.loadComponentClass(this.props.route.component);
         }
         else {
             //not function
             this.setState({
-                componentClass: this.props.route.component
+                componentClass: this.props.route.component as any
             })
         }
     }
 
     componentWillUpdate(nextProps: FullTsRouteRenderProps, nextState: FullTsRouteRenderState) {
         if (this.props != nextProps) {
-            if (typeof nextProps.route.component == 'function') {
+            if (this.isDynamicImport(nextProps.route.component)) {
                 let cacheKey = nextProps.route.component.toString();
                 let cache = this.loadedComponentClass[cacheKey];
                 if (cache) {
@@ -43,27 +43,35 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
                 }                
             }
             else {
-                nextState.componentClass = nextProps.route.component
+                nextState.componentClass = nextProps.route.component as any
             }
         }        
     }
 
     private loadedComponentClass: { [key: string]: React.ComponentClass } = {};
     private loadComponentClass(func: Function) {
-        let result: any = func();
-        if (result.then) {
-            result.then((v: any) => {
-                this.loadedComponentClass[func.toString()] = v.default;
-                this.setState({
-                    componentClass: v.default
-                })
+        func().then((v: any) => {
+            this.loadedComponentClass[func.toString()] = v.default;
+            this.setState({
+                componentClass: v.default
             })
+        })
+    }
+
+    private isDynamicImport(component: FullTsAppRoute['component']): boolean {
+        let result: any;
+        try {
+            result = (component as any)()
+        }
+        catch{
+            return false;
+        }
+
+        if (result && result.then) {
+            return true;
         }
         else {
-            //pure component function
-            this.setState({
-                componentClass: this.props.route.component as any
-            })
+            return false;
         }
     }
 

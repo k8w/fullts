@@ -39,5 +39,6 @@ module.exports = {
     devServer: {
         contentBase: __dirname,
         historyApiFallback: true
-    }
+    },
+    devtool: 'source-map'
 }
