@@ -6,7 +6,7 @@ new FullTsApp({
     routes: [
         { path: '/', component: () => import('./views/HomeView'), layout: () => import('./views/Layout') },
         { path: '/sub', component: () => import('./views/SubView'), layout: () => import('./views/Layout') },
-        { path: '/sub/:id', component: () => import('./views/SubView') },
+        { path: '/sub/:id', component: () => import('./views/SubView'), layout: () => import('./views/Layout') },
         { path: '*', component: () => import('./views/Page404') }
     ],
     onRouteChange: e => {

@@ -5,8 +5,10 @@ import { ITsRpcClient, TsRpcPtl } from 'tsrpc-protocol';
 import SuperPromise from 'k8w-super-promise';
 import { RpcClient } from 'tsrpc-browser';
 import * as PropTypes from 'prop-types';
-import { BrowserRouter, Switch, Route, RouteComponentProps } from 'react-router-dom';
-import FullTsRouteRender from './FullTsRouteRender';
+import { BrowserRouter, Switch, Route, RouteComponentProps, matchPath } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { FullTsAppRoute } from '../index';
+import FullTsRouteSwitch from './FullTsRouteSwitch';
 
 export default class FullTsApp implements ITsRpcClient {
     protected rpcClient: RpcClient;
@@ -133,53 +135,8 @@ class FullTsAppContainer extends React.Component<{ app: FullTsApp }> {
     render() {
         return (
             <BrowserRouter>
-                <Switch>
-                    {this.props.app.config.routes.map((v, i) =>
-                        <Route key={i} path={v.path} exact render={props => {
-                            let prevLocation = this.props.app.location;
-                            let prevParams = this.props.app.params;
-                            let prevQuery = this.props.app.query;
-                            this.props.app.history = props.history;
-                            this.props.app.match = props.match;
-                            this.props.app.location = props.location;
-                            this.props.app.params = props.match.params;
-                            this.props.app.query = this.parseQueryString(props.location.search);
-                            
-                            //event
-                            this.props.app.config.onRouteChange && this.props.app.config.onRouteChange({
-                                prevLocation: prevLocation,
-                                prevParams: prevParams,
-                                prevQuery: prevQuery,
-                                nextLocation: this.props.app.location,
-                                nextParams: this.props.app.params,
-                                nextQuery: this.props.app.query
-                            });
-
-                            return <FullTsRouteRender route={v} routeProps={props} />
-                        }} />
-                    )}
-                </Switch>
+                <FullTsRouteSwitch routes={this.props.app.config.routes} app={this.props.app} />
             </BrowserRouter>
-        );
-    }
-
-    private parseQueryString(search: string): { [key: string]: string }{
-        if (!search) {
-            return {};
-        }
-
-        let paramStrs = search.replace(/^\?/, '').split('&');
-        let output: any = {};
-        for (let str of paramStrs) {
-            let equalPos = str.indexOf('=');
-            if (equalPos > -1) {
-                output[str.slice(0, equalPos)] = decodeURIComponent(str.slice(equalPos+1))
-            }
-            else {
-                output[str] = '';
-            }
-        }
-
-        return output;
+        )
     }
 }

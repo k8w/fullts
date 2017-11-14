@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
+import FullTsComponent from '../../src/FullTsComponent';
 
 const style = {
     fontSize: 20,
@@ -9,12 +10,12 @@ const style = {
     background: '#ddd'
 };
 
-export default class Layout extends React.PureComponent {
+export default class Layout extends FullTsComponent {
     render() {
         return (
             <div>
                 <header style={{ ...style, lineHeight: '30px', padding: '10px 0px' }}>
-                    <p>Header</p>
+                    <p>Header {this.app.location.pathname}</p>
                     <p>
                         <NavLink exact activeStyle={{color: 'red'}} to='/'>Home</NavLink>&nbsp;&nbsp;|&nbsp;&nbsp;
                         <NavLink exact activeStyle={{ color: 'red' }} to='/sub'>SubView</NavLink>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -27,5 +28,9 @@ export default class Layout extends React.PureComponent {
                 <footer style={{ ...style, lineHeight: '50px' }}>Footer</footer>
             </div>
         )
+    }
+
+    componentWillUnmount() {
+        console.log('unmount')
     }
 }

@@ -12,62 +12,58 @@ export interface FullTsRouteRenderState {
 }
 
 export default class FullTsRouteRender extends React.Component<FullTsRouteRenderProps, FullTsRouteRenderState>{
-    //<Switch></Switch>的BUG 如果不指定这个则会全部变成exact false
-    static defaultProps = {
-        exact: true
-    } as any;
-
     constructor(props: FullTsRouteRenderProps, context?: any) {
         super(props, context);
         this.state = {};
     }
 
     componentWillMount() {
-        // if (this.props.route.render) {
-        //     let result = this.props.route.render({
-        //         match: (this.props as any).match,
-        //         location: (this.props as any).location,
-        //         history: (this.props as any).history
-        //     });
-        //     if (result && (result as PromiseLike<React.ReactNode>).then) {
-        //         //is Promise
-        //         (result as PromiseLike<React.ReactNode>).then(v => {
-        //             this.setState({
-        //                 node: v
-        //             })
-        //         })
-        //     }
-        //     else {
-        //         //not Promise
-        //         this.setState({
-        //             node: result as React.ReactNode
-        //         })
-        //     }
-        // }
-        if (this.props.route.component) {
-            if (typeof this.props.route.component == 'function') {
-                //function
-                let result: any = (this.props.route.component as Function)();
-                if (result.then) {
-                    result.then((v: any) => {
-                        this.setState({
-                            componentClass: v.default
-                        })
-                    })
+        if (typeof this.props.route.component == 'function') {
+            this.loadComponentClass(this.props.route.component);
+        }
+        else {
+            //not function
+            this.setState({
+                componentClass: this.props.route.component
+            })
+        }
+    }
+
+    componentWillUpdate(nextProps: FullTsRouteRenderProps, nextState: FullTsRouteRenderState) {
+        if (this.props != nextProps) {
+            if (typeof nextProps.route.component == 'function') {
+                let cacheKey = nextProps.route.component.toString();
+                let cache = this.loadedComponentClass[cacheKey];
+                if (cache) {
+                    nextState.componentClass = cache
                 }
                 else {
-                    //pure component function
-                    this.setState({
-                        componentClass: this.props.route.component as any
-                    })
-                }
+                    nextState.componentClass = undefined;
+                    this.loadComponentClass(nextProps.route.component);
+                }                
             }
             else {
-                //not function
-                this.setState({
-                    componentClass: this.props.route.component
-                })
+                nextState.componentClass = nextProps.route.component
             }
+        }        
+    }
+
+    private loadedComponentClass: { [key: string]: React.ComponentClass } = {};
+    private loadComponentClass(func: Function) {
+        let result: any = func();
+        if (result.then) {
+            result.then((v: any) => {
+                this.loadedComponentClass[func.toString()] = v.default;
+                this.setState({
+                    componentClass: v.default
+                })
+            })
+        }
+        else {
+            //pure component function
+            this.setState({
+                componentClass: this.props.route.component as any
+            })
         }
     }
 
