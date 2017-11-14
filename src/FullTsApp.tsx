@@ -5,9 +5,7 @@ import { ITsRpcClient, TsRpcPtl } from 'tsrpc-protocol';
 import SuperPromise from 'k8w-super-promise';
 import { RpcClient } from 'tsrpc-browser';
 import * as PropTypes from 'prop-types';
-import { BrowserRouter, Switch, Route, RouteComponentProps, matchPath } from 'react-router-dom';
-import { withRouter } from 'react-router';
-import { FullTsAppRoute } from '../index';
+import { BrowserRouter, RouteComponentProps } from 'react-router-dom';
 import FullTsRouteSwitch from './FullTsRouteSwitch';
 
 export default class FullTsApp implements ITsRpcClient {
