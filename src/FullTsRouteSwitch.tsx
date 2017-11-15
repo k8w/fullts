@@ -31,6 +31,7 @@ class FSwitch extends React.Component<FSwitchProps>{
 
             //event
             this.props.app.config.onRouteChange && this.props.app.config.onRouteChange({
+                target: this.props.app,
                 prevLocation: prevLocation,
                 prevParams: prevParams,
                 prevQuery: prevQuery,

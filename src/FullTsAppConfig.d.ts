@@ -1,6 +1,8 @@
 import { RouteComponentProps } from 'react-router';
+import FullTsApp from './FullTsApp';
 
 export interface RouteChangeEvent {
+    target: FullTsApp;
     prevLocation?: RouteComponentProps<any>['location'];
     prevParams?: any;
     prevQuery?: { [key: string]: string };
