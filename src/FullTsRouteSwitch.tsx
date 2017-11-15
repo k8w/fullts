@@ -34,10 +34,7 @@ class FSwitch extends React.Component<FSwitchProps>{
                 target: this.props.app,
                 prevLocation: prevLocation,
                 prevParams: prevParams,
-                prevQuery: prevQuery,
-                nextLocation: this.props.app.location,
-                nextParams: this.props.app.params,
-                nextQuery: this.props.app.query
+                prevQuery: prevQuery
             });
 
             return <FullTsRouteRender route={matched.route} routeProps={routeProps} />

@@ -1,6 +1,6 @@
 {
   "name": "fullts",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Full stack framework in TypeScript, based on TSRPC.",
   "main": "index.js",
   "scripts": {

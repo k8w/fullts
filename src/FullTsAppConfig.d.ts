@@ -6,9 +6,6 @@ export interface RouteChangeEvent {
     prevLocation?: RouteComponentProps<any>['location'];
     prevParams?: any;
     prevQuery?: { [key: string]: string };
-    nextLocation: RouteComponentProps<any>['location'];
-    nextParams: any;
-    nextQuery: { [key: string]: string };
 }
 
 export default interface FullTsAppConfig {
