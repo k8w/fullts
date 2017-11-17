@@ -18,7 +18,6 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
     }
 
     componentWillMount() {
-        console.log('aaa')
         if (this.isDynamicImport(this.props.route.component)) {
             this.loadComponentClass(this.props.route.component);
         }
