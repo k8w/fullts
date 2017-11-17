@@ -14,7 +14,7 @@ export default class Layout extends FullTsComponent {
     render() {
         return (
             <div>
-                <header style={{ ...style, lineHeight: '30px', padding: '10px 0px' }}>
+                <header style={{ ...style, lineHeight: '30px', padding: '10px 0px', position: 'fixed', top: 0 }}>
                     <p>Header {this.app.location.pathname}</p>
                     <p>
                         <NavLink exact activeStyle={{color: 'red'}} to='/'>Home</NavLink>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -24,7 +24,7 @@ export default class Layout extends FullTsComponent {
                         <NavLink exact activeStyle={{ color: 'red' }} to={'/404'}>404</NavLink>
                     </p>
                 </header>
-                <section style={{ fontSize: 18, padding: 20 }}>{this.props.children || <div>Loading...</div>}</section>
+                <section style={{ fontSize: 18, padding: 20, marginTop: 100 }}>{this.props.children || <div>Loading...</div>}</section>
                 <footer style={{ ...style, lineHeight: '50px' }}>Footer</footer>
             </div>
         )

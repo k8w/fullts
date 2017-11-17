@@ -15,7 +15,7 @@ export default class SubView extends FullTsComponent {
         })
         
         return (
-            <div>SubView {this.app.params.id} {this.app.query.id}</div>
+            <div style={{background: '#ccc', height: 2000}}>SubView {this.app.params.id} {this.app.query.id}</div>
         )
     }
 }

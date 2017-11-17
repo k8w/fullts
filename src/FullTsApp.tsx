@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import FullTsAppConfig from './FullTsAppConfig';
+import FullTsAppConfig, { DefaultFullTsAppConfig } from './FullTsAppConfig';
 import { ITsRpcClient, TsRpcPtl } from 'tsrpc-protocol';
 import SuperPromise from 'k8w-super-promise';
 import { RpcClient } from 'tsrpc-browser';
@@ -27,7 +27,7 @@ export default class FullTsApp implements ITsRpcClient {
     match: RouteComponentProps<any>['match'];
 
     constructor(config: FullTsAppConfig) {
-        this.config = config;
+        this.config = Object.merge({}, DefaultFullTsAppConfig, config);
         this.rpcClient = new RpcClient({
             serverUrl: this.config.serverUrl
         })
@@ -35,7 +35,6 @@ export default class FullTsApp implements ITsRpcClient {
 
     protected _apiRequests: { [sn: number]: SuperPromise<any> } = {};
     callApi<Req, Res>(ptl: TsRpcPtl<Req, Res>, req?: Req): SuperPromise<Res> {
-        //TODO ADD TO CONN POOL AND DISPOSE
         let conn = this.rpcClient.callApi(ptl, req);
         let sn = RpcClient.getLastReqSn();
         this._apiRequests[sn] = conn;

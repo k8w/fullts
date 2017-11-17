@@ -14,7 +14,7 @@ export default class HomeView extends FullTsView{
     
     render() {
         return (
-            <div>HomeView</div>
+            <div style={{background: '#999', height: 2000}}>HomeView</div>
         )
     }
 }
