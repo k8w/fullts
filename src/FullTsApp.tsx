@@ -3,13 +3,13 @@ import * as ReactDOM from 'react-dom';
 import FullTsAppConfig, { DefaultFullTsAppConfig } from './FullTsAppConfig';
 import { ITsRpcClient, TsRpcPtl } from 'tsrpc-protocol';
 import SuperPromise from 'k8w-super-promise';
-import { RpcClient } from 'tsrpc-browser';
+import { TsRpcClient } from 'tsrpc-browser';
 import * as PropTypes from 'prop-types';
 import { BrowserRouter, RouteComponentProps } from 'react-router-dom';
 import FullTsRouteSwitch from './FullTsRouteSwitch';
 
 export default class FullTsApp implements ITsRpcClient {
-    protected rpcClient: RpcClient;
+    protected rpcClient: TsRpcClient;
     readonly config: FullTsAppConfig;
 
     /**
@@ -28,7 +28,7 @@ export default class FullTsApp implements ITsRpcClient {
 
     constructor(config: FullTsAppConfig) {
         this.config = Object.merge({}, DefaultFullTsAppConfig, config);
-        this.rpcClient = new RpcClient({
+        this.rpcClient = new TsRpcClient({
             serverUrl: this.config.serverUrl
         })
     }
@@ -36,7 +36,7 @@ export default class FullTsApp implements ITsRpcClient {
     protected _apiRequests: { [sn: number]: SuperPromise<any> } = {};
     callApi<Req, Res>(ptl: TsRpcPtl<Req, Res>, req?: Req): SuperPromise<Res> {
         let conn = this.rpcClient.callApi(ptl, req);
-        let sn = RpcClient.getLastReqSn();
+        let sn = TsRpcClient.getLastReqSn();
         this._apiRequests[sn] = conn;
 
         //pop when complete

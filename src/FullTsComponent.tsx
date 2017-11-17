@@ -2,7 +2,7 @@ import * as React from "react";
 import { ITsRpcClient, TsRpcPtl } from "tsrpc-protocol";
 import SuperPromise from "k8w-super-promise";
 import FullTsApp from './FullTsApp';
-import { RpcClient } from "tsrpc-browser";
+import { TsRpcClient } from "tsrpc-browser";
 import * as PropTypes from 'prop-types';
 
 export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> implements ITsRpcClient {
@@ -30,7 +30,7 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
     callApi<Req, Res>(ptl: TsRpcPtl<Req, Res>, req?: Req): SuperPromise<Res> {
         //ADD TO CONN POOL AND POP WHEN DISPOSE
         let conn = this.app.callApi(ptl, req);
-        let sn = RpcClient.getLastReqSn();
+        let sn = TsRpcClient.getLastReqSn();
         this._apiRequests[sn] = conn;
 
         //pop when complete
