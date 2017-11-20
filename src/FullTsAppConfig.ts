@@ -29,8 +29,8 @@ export default interface FullTsAppConfig {
 
 export interface FullTsAppRoute {
     path: string;
-    component: React.ComponentType | (() => PromiseLike<{ default: React.ComponentType }>);
-    layout?: React.ComponentType | (() => PromiseLike<{ default: React.ComponentType }>);
+    component: React.ComponentType<any> | (() => PromiseLike<{ default: React.ComponentType<any> }>);
+    layout?: React.ComponentType<any> | (() => PromiseLike<{ default: React.ComponentType<any> }>);
     // render?: ((props: RouteComponentProps<any>) => (React.ReactNode | PromiseLike<React.ReactNode>));
 }
 
