@@ -9,7 +9,7 @@ import { BrowserRouter, RouteComponentProps } from 'react-router-dom';
 import FullTsRouteSwitch from './FullTsRouteSwitch';
 
 export default class FullTsApp implements ITsRpcClient {
-    protected rpcClient: TsRpcClient;
+    rpcClient: TsRpcClient;
     readonly config: FullTsAppConfig;
 
     /**
