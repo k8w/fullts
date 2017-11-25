@@ -14,7 +14,9 @@ export default class HomeView extends FullTsView{
     
     render() {
         return (
-            <div style={{background: '#999', height: 2000}}>HomeView</div>
+            <div style={{ background: '#999', height: 2000 }}>
+                {Array.from({ length: 4000 }, (v, i) => <div id={i.toString()}><a href={'#'+ (i+100)}>{i}</a></div>)}
+            </div>
         )
     }
 
