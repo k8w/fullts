@@ -119,7 +119,7 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
     private _globalEventListeners: {
         target: EventTarget,
         type: string,
-        listener: EventListenerOrEventListenerObject,
+        listener: EventListener,
         options?: boolean | EventListenerOptions
     }[] = [];
     /**
@@ -129,8 +129,8 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
      * @param listener 
      * @param options 
      */
-    addEventListener(target: EventTarget, type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) {
-        target.addEventListener(type, listener, options);
-        this._globalEventListeners.push({ target: target, type: type, listener: listener, options: options });
+    addEventListener<T extends Event=Event>(target: EventTarget, type: string, listener: (e: T) => void, options?: boolean | AddEventListenerOptions) {
+        target.addEventListener(type, listener as EventListener, options);
+        this._globalEventListeners.push({ target: target, type: type, listener: listener as EventListener, options: options });
     }
 }
