@@ -10,8 +10,7 @@ export interface FSwitchProps{
 }
 
 class FSwitch extends React.Component<FSwitchProps>{
-    private renderId = 0;
-
+    
     render() {
         let matched = this.getMatchedRoute((this.props as any).location.pathname, this.props.routes);
 
@@ -39,7 +38,7 @@ class FSwitch extends React.Component<FSwitchProps>{
                 prevQuery: prevQuery
             });
 
-            return <FullTsRouteRender key={this.props.app.config.alwaysRemount ? ++this.renderId : this.renderId} route={matched.route} routeProps={routeProps} />
+            return <FullTsRouteRender app={this.props.app} route={matched.route} routeProps={routeProps} />
         }
         else {
             return <h1>404 Page Not Found</h1>

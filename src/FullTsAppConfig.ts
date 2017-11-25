@@ -15,16 +15,25 @@ export default interface FullTsAppConfig {
     serverUrl: string;
     routes: FullTsAppRoute[];
     onRouteChange?: (e: RouteChangeEvent) => void;
+
     /**
      * always scroll to top when route change
      * @default true
      */
     alwaysScrollTop?: boolean;
+
     /**
-     * always remount components when route change
+     * always remount view components when route change
      * @default true
      */
     alwaysRemount?: boolean;
+
+    /**
+     * always remount layout components when route change
+     * If layout is remounted, view must be remounted too
+     * @default false
+     */
+    alwaysRemountLayout?: boolean;
 }
 
 export interface FullTsAppRoute {
@@ -38,5 +47,6 @@ export const DefaultFullTsAppConfig: FullTsAppConfig = {
     serverUrl: '',
     routes: [],
     alwaysScrollTop: true,
-    alwaysRemount: true
+    alwaysRemount: true,
+    alwaysRemountLayout: false
 }

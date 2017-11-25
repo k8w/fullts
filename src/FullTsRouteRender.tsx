@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { FullTsAppRoute } from './FullTsAppConfig';
 import { RouteComponentProps } from 'react-router';
+import FullTsApp from './FullTsApp';
 
 export interface FullTsRouteRenderProps {
+    app: FullTsApp,
     route: FullTsAppRoute,
-    routeProps: RouteComponentProps<any>
+    routeProps: RouteComponentProps<any>,
+    thisIsLayout?: boolean
 }
 
 export interface FullTsRouteRenderState {
@@ -12,6 +15,8 @@ export interface FullTsRouteRenderState {
 }
 
 export default class FullTsRouteRender extends React.Component<FullTsRouteRenderProps, FullTsRouteRenderState>{
+    private renderId = 0;
+
     constructor(props: FullTsRouteRenderProps, context?: any) {
         super(props, context);
         this.state = {};
@@ -40,12 +45,12 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
                 else {
                     nextState.componentClass = undefined;
                     this.loadComponentClass(nextProps.route.component);
-                }                
+                }
             }
             else {
                 nextState.componentClass = nextProps.route.component as any
             }
-        }        
+        }
     }
 
     private loadedComponentClass: { [key: string]: React.ComponentClass } = {};
@@ -76,22 +81,43 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
     }
 
     render(): any {
-        let output: React.ReactNode = null;
-        if (this.state.componentClass) {
-            //component
-            let Comp = this.state.componentClass;
-            output = <Comp {...this.props.routeProps} >{this.props.children}</Comp>;
-        }
-
         if (this.props.route.layout) {
             //Layout
-            return <FullTsRouteRender route={{
-                path: this.props.route.path,
-                component: this.props.route.layout
-            }} routeProps={this.props.routeProps} >{output}</FullTsRouteRender>
+            return (
+                <FullTsRouteRender app={this.props.app}
+                    route={{
+                        path: this.props.route.path,
+                        component: this.props.route.layout
+                    }}
+                    routeProps={this.props.routeProps}
+                    thisIsLayout
+                >
+                    {this.state.componentClass ?
+                        <this.state.componentClass
+                            key={this.props.app.config.alwaysRemount ? ++this.renderId : this.renderId}
+                            {...this.props.routeProps}
+                        >{this.props.children}</this.state.componentClass>
+                        : null
+                    }
+                </FullTsRouteRender>
+            )
         }
         else {
-            return output;
+            //非Layout
+            let key;
+            if (this.props.thisIsLayout) {
+                key = this.props.app.config.alwaysRemountLayout ? ++this.renderId : this.renderId
+            }
+            else {
+                key = this.props.app.config.alwaysRemountLayout ? ++this.renderId : this.renderId
+            }
+
+            return this.state.componentClass ?
+                <this.state.componentClass
+                    key={key}
+                    {...this.props.routeProps}
+                >{this.props.children}</this.state.componentClass>
+                : null;
         }
     }
 }

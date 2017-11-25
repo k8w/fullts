@@ -31,6 +31,6 @@ export default class Layout extends FullTsComponent {
     }
 
     componentWillUnmount() {
-        console.log('unmount')
+        console.log('layout unmount')
     }
 }

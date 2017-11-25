@@ -17,4 +17,8 @@ export default class HomeView extends FullTsView{
             <div style={{background: '#999', height: 2000}}>HomeView</div>
         )
     }
+
+    componentWillUnmount() {
+        console.log('homeview unmount')
+    }
 }
