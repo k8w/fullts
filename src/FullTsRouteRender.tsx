@@ -109,7 +109,7 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
                 key = this.props.app.config.alwaysRemountLayout ? ++this.renderId : this.renderId
             }
             else {
-                key = this.props.app.config.alwaysRemountLayout ? ++this.renderId : this.renderId
+                key = this.props.app.config.alwaysRemount ? ++this.renderId : this.renderId
             }
 
             return this.state.componentClass ?

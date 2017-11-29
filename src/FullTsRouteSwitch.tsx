@@ -9,8 +9,17 @@ export interface FSwitchProps{
     app: FullTsApp
 }
 
-class FSwitch extends React.Component<FSwitchProps>{
+class FSwitch extends React.Component<FSwitchProps & Partial<RouteComponentProps<any>>>{
     
+    shouldComponentUpdate(nextProps: this['props'], nextState: this['state']) {
+        //当path不变 切换hash的时候 是不需要update的
+        if (this.props.location!.pathname === nextProps.location!.pathname && nextProps.location!.hash) {
+            return false;
+        }
+        
+        return true;
+    }
+
     render() {
         let matched = this.getMatchedRoute((this.props as any).location.pathname, this.props.routes);
 
