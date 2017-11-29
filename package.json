@@ -24,17 +24,17 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@types/prop-types": "^15.5.2",
-    "@types/react-dom": "^16.0.2",
-    "@types/react-router-dom": "^4.2.0",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-router-dom": "^4.2.3",
     "k8w-super-promise": "*",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "ts-loader": "^3.1.1",
     "tsrpc-browser": "*",
     "tsrpc-protocol-loader": "*",
-    "typescript": "^2.6.1",
+    "typescript": "^2.6.2",
     "webpack": "^3.8.1"
   },
   "typings": "index.d.ts"
