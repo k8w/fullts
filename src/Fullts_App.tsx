@@ -1,16 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import FullTsAppConfig, { DefaultFullTsAppConfig } from './FullTsAppConfig';
+import FulltsAppConfig, { DefaultFulltsAppConfig } from './FulltsAppConfig';
 import { ITsRpcClient, TsRpcPtl } from 'tsrpc-protocol';
 import SuperPromise from 'k8w-super-promise';
 import { TsRpcClient } from 'tsrpc-browser';
 import * as PropTypes from 'prop-types';
 import { BrowserRouter, RouteComponentProps } from 'react-router-dom';
-import FullTsRouteSwitch from './FullTsRouteSwitch';
+import FulltsRouteSwitch from './FulltsRouteSwitch';
 
-export default class FullTsApp implements ITsRpcClient {
+export default class FulltsApp implements ITsRpcClient {
     rpcClient: TsRpcClient;
-    readonly config: FullTsAppConfig;
+    readonly config: FulltsAppConfig;
 
     /**
      * params from route match
@@ -26,8 +26,8 @@ export default class FullTsApp implements ITsRpcClient {
     location: RouteComponentProps<any>['location'];
     match: RouteComponentProps<any>['match'];
 
-    constructor(config: FullTsAppConfig) {
-        this.config = Object.merge({}, DefaultFullTsAppConfig, config);
+    constructor(config: FulltsAppConfig) {
+        this.config = Object.merge({}, DefaultFulltsAppConfig, config);
         this.rpcClient = new TsRpcClient({
             serverUrl: this.config.serverUrl
         })
@@ -52,7 +52,7 @@ export default class FullTsApp implements ITsRpcClient {
     protected _domTarget: HTMLElement;
     renderTo(domTarget: HTMLElement) {
         this._domTarget = domTarget;
-        ReactDOM.render(<FullTsAppContainer app={this} />, domTarget);
+        ReactDOM.render(<FulltsAppContainer app={this} />, domTarget);
     }
 
     dispose() {
@@ -118,9 +118,9 @@ export default class FullTsApp implements ITsRpcClient {
     }
 }
 
-class FullTsAppContainer extends React.Component<{ app: FullTsApp }> {
+class FulltsAppContainer extends React.Component<{ app: FulltsApp }> {
     static childContextTypes = {
-        fullTsApp: PropTypes.instanceOf(FullTsApp)
+        fullTsApp: PropTypes.instanceOf(FulltsApp)
     }
 
     getChildContext() {
@@ -132,7 +132,7 @@ class FullTsAppContainer extends React.Component<{ app: FullTsApp }> {
     render() {
         return (
             <BrowserRouter>
-                <FullTsRouteSwitch routes={this.props.app.config.routes} app={this.props.app} />
+                <FulltsRouteSwitch routes={this.props.app.config.routes} app={this.props.app} />
             </BrowserRouter>
         )
     }

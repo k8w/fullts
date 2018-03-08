@@ -1,12 +1,12 @@
 import * as React from "react";
-import { FullTsAppRoute } from './FullTsAppConfig';
+import { FulltsAppRoute } from './FulltsAppConfig';
 import { withRouter, RouteComponentProps, matchPath } from "react-router";
-import FullTsRouteRender from './FullTsRouteRender';
-import FullTsApp from './FullTsApp';
+import FulltsRouteRender from './FulltsRouteRender';
+import FulltsApp from './FulltsApp';
 
 export interface FSwitchProps{
-    routes: FullTsAppRoute[],
-    app: FullTsApp
+    routes: FulltsAppRoute[],
+    app: FulltsApp
 }
 
 class FSwitch extends React.Component<FSwitchProps & Partial<RouteComponentProps<any>>>{
@@ -47,7 +47,7 @@ class FSwitch extends React.Component<FSwitchProps & Partial<RouteComponentProps
                 prevQuery: prevQuery
             });
 
-            return <FullTsRouteRender app={this.props.app} route={matched.route} routeProps={routeProps} />
+            return <FulltsRouteRender app={this.props.app} route={matched.route} routeProps={routeProps} />
         }
         else {
             return <h1>404 Page Not Found</h1>
@@ -60,7 +60,7 @@ class FSwitch extends React.Component<FSwitchProps & Partial<RouteComponentProps
         }
     }
 
-    private getMatchedRoute(pathname: string, routes: FullTsAppRoute[]): { route: FullTsAppRoute, match: RouteComponentProps<any>['match']} | null {
+    private getMatchedRoute(pathname: string, routes: FulltsAppRoute[]): { route: FulltsAppRoute, match: RouteComponentProps<any>['match']} | null {
         for (let route of routes) {
             let match = matchPath(pathname, {
                 path: route.path,
@@ -98,5 +98,5 @@ class FSwitch extends React.Component<FSwitchProps & Partial<RouteComponentProps
     }
 }
 
-const FullTsRouteSwitch = withRouter(FSwitch as any);
-export default FullTsRouteSwitch;
+const FulltsRouteSwitch = withRouter(FSwitch as any);
+export default FulltsRouteSwitch;

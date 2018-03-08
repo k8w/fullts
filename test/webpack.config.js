@@ -38,7 +38,8 @@ module.exports = {
     ],
     devServer: {
         contentBase: __dirname,
-        historyApiFallback: true
+        historyApiFallback: true,
+        host: '0.0.0.0'
     },
     devtool: 'source-map'
 }

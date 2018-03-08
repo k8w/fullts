@@ -22,9 +22,9 @@ Get best practise of project instantly, without learning many tools (etc. webpac
 
 ```ts
 import * as React from 'react';
-import {FullTsApp} from 'fullts';
+import {FulltsApp} from 'fullts';
 
-new FullTsApp({
+new FulltsApp({
     serverUrl: '',
     routes: [
         { path: '/', component: () => import('./views/HomeView') },

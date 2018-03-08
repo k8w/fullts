@@ -1,9 +1,10 @@
 import * as React from 'react';
-import FullTsComponent from '../../src/FullTsComponent';
+import FulltsComponent from '../../src/FulltsComponent';
 import Layout from './Layout';
-import FullTsView from '../../src/FullTsView';
+import FulltsView from '../../src/FulltsView';
+import { Link } from 'react-router-dom';
 
-export default class HomeView extends FullTsView{
+export default class HomeView extends FulltsView{
     componentWillMount() {
         this.app.setTitle('HomeView');
         this.app.setSeoMeta({
@@ -14,18 +15,18 @@ export default class HomeView extends FullTsView{
         setTimeout(() => {
             this.isShow = true;
             this.forceUpdate();
-        }, 500)
+        }, 100)
     }
     
     private isShow = false;
     render() {
         if (!this.isShow) {
-            return null
+            return <div>Loading...</div>
         }
 
         return (
             <div style={{ background: '#999', height: 2000 }}>
-                {Array.from({ length: 4000 }, (v, i) => <div key={i} id={i.toString()}><a href={'#'+ (i+100)}>{i}</a></div>)}
+                {Array.from({ length: 4000 }, (v, i) => <div key={i} id={i.toString()}><Link to={'/sub/' + (i + 100)}>{i}</Link></div>)}
             </div>
         )
     }

@@ -1,15 +1,15 @@
 /// <reference path="global.ts" />
 
-import FullTsAppConfig from './src/FullTsAppConfig';
-import FullTsApp from "./src/FullTsApp";
-import FullTsComponent from './src/FullTsComponent';
-import { FullTsAppRoute } from './src/FullTsAppConfig';
-import FullTsView from './src/FullTsView';
+import FulltsAppConfig from './src/FulltsAppConfig';
+import FulltsApp from "./src/FulltsApp";
+import FulltsComponent from './src/FulltsComponent';
+import { FulltsAppRoute } from './src/FulltsAppConfig';
+import FulltsView from './src/FulltsView';
 
 export {
-    FullTsApp,
-    FullTsAppConfig,
-    FullTsAppRoute,
-    FullTsComponent,
-    FullTsView
+    FulltsApp,
+    FulltsAppConfig,
+    FulltsAppRoute,
+    FulltsComponent,
+    FulltsView
 }

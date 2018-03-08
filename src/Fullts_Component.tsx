@@ -1,13 +1,13 @@
 import * as React from "react";
 import { ITsRpcClient, TsRpcPtl } from "tsrpc-protocol";
 import SuperPromise from "k8w-super-promise";
-import FullTsApp from './FullTsApp';
+import FulltsApp from './FulltsApp';
 import { TsRpcClient } from "tsrpc-browser";
 import * as PropTypes from 'prop-types';
 
-export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> implements ITsRpcClient {
+export default class FulltsComponent<P={}, S={}> extends React.Component<P, S> implements ITsRpcClient {
     static contextTypes = {
-        fullTsApp: PropTypes.instanceOf(FullTsApp)
+        fullTsApp: PropTypes.instanceOf(FulltsApp)
     }
 
     constructor(props: P, context?: any) {
@@ -46,7 +46,7 @@ export default class FullTsComponent<P={}, S={}> extends React.Component<P, S> i
     /**
      * Current FullTSApp Instance
      */
-    get app(): FullTsApp {
+    get app(): FulltsApp {
         return this.context.fullTsApp;
     }
 

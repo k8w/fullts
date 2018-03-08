@@ -1,7 +1,7 @@
-import FullTsApp from '../src/FullTsApp';
+import FulltsApp from '../src/FulltsApp';
 import Layout from './views/Layout';
 
-new FullTsApp({
+new FulltsApp({
     serverUrl: '',
     routes: [
         { path: '/', component: () => import('./views/HomeView'), layout: () => import('./views/Layout') },

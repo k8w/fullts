@@ -1,23 +1,23 @@
 import * as React from 'react';
-import { FullTsAppRoute } from './FullTsAppConfig';
+import { FulltsAppRoute } from './FulltsAppConfig';
 import { RouteComponentProps } from 'react-router';
-import FullTsApp from './FullTsApp';
+import FulltsApp from './FulltsApp';
 
-export interface FullTsRouteRenderProps {
-    app: FullTsApp,
-    route: FullTsAppRoute,
+export interface FulltsRouteRenderProps {
+    app: FulltsApp,
+    route: FulltsAppRoute,
     routeProps: RouteComponentProps<any>,
     thisIsLayout?: boolean
 }
 
-export interface FullTsRouteRenderState {
+export interface FulltsRouteRenderState {
     componentClass?: React.ComponentClass;
 }
 
-export default class FullTsRouteRender extends React.Component<FullTsRouteRenderProps, FullTsRouteRenderState>{
+export default class FulltsRouteRender extends React.Component<FulltsRouteRenderProps, FulltsRouteRenderState>{
     private renderId = 0;
 
-    constructor(props: FullTsRouteRenderProps, context?: any) {
+    constructor(props: FulltsRouteRenderProps, context?: any) {
         super(props, context);
         this.state = {};
     }
@@ -34,7 +34,7 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
         }
     }
 
-    componentWillUpdate(nextProps: FullTsRouteRenderProps, nextState: FullTsRouteRenderState) {
+    componentWillUpdate(nextProps: FulltsRouteRenderProps, nextState: FulltsRouteRenderState) {
         if (this.props != nextProps) {
             if (this.isDynamicImport(nextProps.route.component)) {
                 let cacheKey = nextProps.route.component.toString();
@@ -63,7 +63,7 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
         })
     }
 
-    private isDynamicImport(component: FullTsAppRoute['component']): boolean {
+    private isDynamicImport(component: FulltsAppRoute['component']): boolean {
         let result: any;
         try {
             result = (component as any)()
@@ -84,7 +84,7 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
         if (this.props.route.layout) {
             //Layout
             return (
-                <FullTsRouteRender app={this.props.app}
+                <FulltsRouteRender app={this.props.app}
                     route={{
                         path: this.props.route.path,
                         component: this.props.route.layout
@@ -99,7 +99,7 @@ export default class FullTsRouteRender extends React.Component<FullTsRouteRender
                         >{this.props.children}</this.state.componentClass>
                         : null
                     }
-                </FullTsRouteRender>
+                </FulltsRouteRender>
             )
         }
         else {

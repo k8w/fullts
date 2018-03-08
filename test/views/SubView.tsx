@@ -1,8 +1,8 @@
 import * as React from 'react';
-import FullTsComponent from '../../src/FullTsComponent';
+import FulltsComponent from '../../src/FulltsComponent';
 import Layout from './Layout';
 
-export default class SubView extends FullTsComponent {
+export default class SubView extends FulltsComponent {
     componentWillMount() {
         
     }

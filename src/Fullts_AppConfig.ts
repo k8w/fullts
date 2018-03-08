@@ -1,19 +1,19 @@
 import { RouteComponentProps } from 'react-router';
-import FullTsApp from './FullTsApp';
+import FulltsApp from './FulltsApp';
 
 export interface RouteChangeEvent {
-    target: FullTsApp;
+    target: FulltsApp;
     prevLocation?: RouteComponentProps<any>['location'];
     prevParams?: any;
     prevQuery?: { [key: string]: string };
 }
 
-export default interface FullTsAppConfig {
+export default interface FulltsAppConfig {
     /**
      * TSRPC服务端地址 例如 http://test.com/api
      */
     serverUrl: string;
-    routes: FullTsAppRoute[];
+    routes: FulltsAppRoute[];
     onRouteChange?: (e: RouteChangeEvent) => void;
 
     /**
@@ -36,14 +36,14 @@ export default interface FullTsAppConfig {
     alwaysRemountLayout?: boolean;
 }
 
-export interface FullTsAppRoute {
+export interface FulltsAppRoute {
     path: string;
     component: React.ComponentType<any> | (() => PromiseLike<{ default: React.ComponentType<any> }>);
     layout?: React.ComponentType<any> | (() => PromiseLike<{ default: React.ComponentType<any> }>);
     // render?: ((props: RouteComponentProps<any>) => (React.ReactNode | PromiseLike<React.ReactNode>));
 }
 
-export const DefaultFullTsAppConfig: FullTsAppConfig = {
+export const DefaultFulltsAppConfig: FulltsAppConfig = {
     serverUrl: '',
     routes: [],
     alwaysScrollTop: true,
