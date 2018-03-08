@@ -4,7 +4,7 @@ import { withRouter, RouteComponentProps, matchPath } from "react-router";
 import FulltsRouteRender from './FulltsRouteRender';
 import FulltsApp from './FulltsApp';
 
-export interface FSwitchProps{
+export interface FSwitchProps extends RouteComponentProps<any>{
     routes: FulltsAppRoute[],
     app: FulltsApp
 }
@@ -98,5 +98,5 @@ class FSwitch extends React.Component<FSwitchProps & Partial<RouteComponentProps
     }
 }
 
-const FulltsRouteSwitch = withRouter(FSwitch as any);
+const FulltsRouteSwitch = withRouter(FSwitch);
 export default FulltsRouteSwitch;

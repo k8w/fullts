@@ -1,11 +1,11 @@
 import * as React from "react";
-import { ITsRpcClient, TsRpcPtl } from "tsrpc-protocol";
+import { ITsrpcClient, TsrpcPtl } from "tsrpc-protocol";
 import SuperPromise from "k8w-super-promise";
 import FulltsApp from './FulltsApp';
-import { TsRpcClient } from "tsrpc-browser";
+import { TsrpcClient } from "tsrpc-browser";
 import * as PropTypes from 'prop-types';
 
-export default class FulltsComponent<P={}, S={}> extends React.Component<P, S> implements ITsRpcClient {
+export default class FulltsComponent<P={}, S={}> extends React.Component<P, S> implements ITsrpcClient {
     static contextTypes = {
         fullTsApp: PropTypes.instanceOf(FulltsApp)
     }
@@ -27,10 +27,10 @@ export default class FulltsComponent<P={}, S={}> extends React.Component<P, S> i
     }
 
     protected _apiRequests: { [sn: number]: SuperPromise<any> } = {};
-    callApi<Req, Res>(ptl: TsRpcPtl<Req, Res>, req?: Req): SuperPromise<Res> {
+    callApi<Req, Res>(ptl: TsrpcPtl<Req, Res>, req?: Req): SuperPromise<Res> {
         //ADD TO CONN POOL AND POP WHEN DISPOSE
         let conn = this.app.callApi(ptl, req);
-        let sn = TsRpcClient.getLastReqSn();
+        let sn = TsrpcClient.getLastReqSn();
         this._apiRequests[sn] = conn;
 
         //pop when complete

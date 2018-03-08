@@ -1,15 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import FulltsAppConfig, { DefaultFulltsAppConfig } from './FulltsAppConfig';
-import { ITsRpcClient, TsRpcPtl } from 'tsrpc-protocol';
+import { ITsrpcClient, TsrpcPtl } from 'tsrpc-protocol';
 import SuperPromise from 'k8w-super-promise';
-import { TsRpcClient } from 'tsrpc-browser';
+import { TsrpcClient } from 'tsrpc-browser';
 import * as PropTypes from 'prop-types';
 import { BrowserRouter, RouteComponentProps } from 'react-router-dom';
 import FulltsRouteSwitch from './FulltsRouteSwitch';
+import 'k8w-extend-native';
 
-export default class FulltsApp implements ITsRpcClient {
-    rpcClient: TsRpcClient;
+export default class FulltsApp implements ITsrpcClient {
+    rpcClient: TsrpcClient;
     readonly config: FulltsAppConfig;
 
     /**
@@ -22,21 +23,21 @@ export default class FulltsApp implements ITsRpcClient {
     query: { [key: string]: string } = {};
 
     //Router
-    history: RouteComponentProps<any>['history'];
-    location: RouteComponentProps<any>['location'];
-    match: RouteComponentProps<any>['match'];
+    history!: RouteComponentProps<any>['history'];
+    location!: RouteComponentProps<any>['location'];
+    match!: RouteComponentProps<any>['match'];
 
     constructor(config: FulltsAppConfig) {
         this.config = Object.merge({}, DefaultFulltsAppConfig, config);
-        this.rpcClient = new TsRpcClient({
+        this.rpcClient = new TsrpcClient({
             serverUrl: this.config.serverUrl
         })
     }
 
     protected _apiRequests: { [sn: number]: SuperPromise<any> } = {};
-    callApi<Req, Res>(ptl: TsRpcPtl<Req, Res>, req?: Req): SuperPromise<Res> {
+    callApi<Req, Res>(ptl: TsrpcPtl<Req, Res>, req?: Req): SuperPromise<Res> {
         let conn = this.rpcClient.callApi(ptl, req);
-        let sn = TsRpcClient.getLastReqSn();
+        let sn = TsrpcClient.getLastReqSn();
         this._apiRequests[sn] = conn;
 
         //pop when complete
@@ -49,7 +50,7 @@ export default class FulltsApp implements ITsRpcClient {
         return conn;
     }
 
-    protected _domTarget: HTMLElement;
+    protected _domTarget?: HTMLElement;
     renderTo(domTarget: HTMLElement) {
         this._domTarget = domTarget;
         ReactDOM.render(<FulltsAppContainer app={this} />, domTarget);
