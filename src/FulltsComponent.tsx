@@ -2,7 +2,7 @@ import * as React from "react";
 import { ITsrpcClient, TsrpcPtl } from "tsrpc-protocol";
 import SuperPromise from "k8w-super-promise";
 import FulltsApp from './FulltsApp';
-import { TsrpcClient } from "tsrpc-browser";
+import TsrpcClient from "tsrpc-browser";
 import * as PropTypes from 'prop-types';
 
 export default class FulltsComponent<P={}, S={}> extends React.Component<P, S> implements ITsrpcClient {

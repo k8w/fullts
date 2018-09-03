@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import FulltsAppConfig, { DefaultFulltsAppConfig } from './FulltsAppConfig';
 import { ITsrpcClient, TsrpcPtl } from 'tsrpc-protocol';
 import SuperPromise from 'k8w-super-promise';
-import { TsrpcClient } from 'tsrpc-browser';
+import TsrpcClient from 'tsrpc-browser';
 import * as PropTypes from 'prop-types';
 import { BrowserRouter, RouteComponentProps } from 'react-router-dom';
 import FulltsRouteSwitch from './FulltsRouteSwitch';
